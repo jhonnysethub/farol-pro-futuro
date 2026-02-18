@@ -88,7 +88,13 @@ O **Farol pro Futuro** é uma aplicação web desenvolvida em Flask e SQLAlchemy
 
 ## 📸 Capturas de Tela
 
-*(Adicione aqui algumas imagens da sua interface rodando para as pessoas verem como é o projeto!)*
+<img width="1919" height="1079" alt="Captura de tela 2026-02-17 233753" src="https://github.com/user-attachments/assets/0294f84a-30ce-4c0b-b323-682c841e2ab6" />
+<img width="1902" height="1075" alt="Captura de tela 2026-02-17 233810" src="https://github.com/user-attachments/assets/80e67999-55cc-49a5-886f-c92809a61af3" />
+<img width="1902" height="1079" alt="Captura de tela 2026-02-17 233850" src="https://github.com/user-attachments/assets/529c3700-5bc2-4cc1-a53e-3ce0dc37e42c" />
+<img width="1901" height="1079" alt="Captura de tela 2026-02-17 233859" src="https://github.com/user-attachments/assets/fea8e9ff-2506-40ed-820a-d396369f5c5b" />
+<img width="1919" height="1079" alt="Captura de tela 2026-02-17 233928" src="https://github.com/user-attachments/assets/0d9eb932-ead6-4448-a244-afb6d87e2fcd" />
+<img width="1903" height="1079" alt="Captura de tela 2026-02-17 234022" src="https://github.com/user-attachments/assets/85cf5d65-b9c1-4ffd-8552-78115474da18" />
+
 ---
 
 ## 👥 Equipe
