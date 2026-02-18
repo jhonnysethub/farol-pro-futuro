@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faról pro Futuro</title>
+
+    <link rel="stylesheet" href=" {{ url_for('static', filename='style.css') }}">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='assets/favicon.png') }}">
+</head>
+<body>
+    <header class="main-header">
+        <a href="{{ url_for('index') }}" class="logo">
+            <img src="{{ url_for('static', filename='/assets/logo.png') }}" alt="Logo" class="logo-img">Farol pro Futuro
+        </a>
+        <nav>
+            <a href="{{ url_for('relembrar') }}">Minha Cápsula do Tempo</a>
+        </nav>
+    </header>
+
+   <div class="container-principal">
+    <div class="card-produto">
+        <h1 class="titulo-principal">É normal se sentir perdido?</h1>
+            <div class="caixa-descricao">
+                <p>
+                    Nós acreditamos que sim. A pressão para decidir o futuro é gigante.
+                    Antes de te dar respostas, queremos que saiba: <strong>você não está sozinho(a) nisso.</strong>
+                </p>
+                <p>
+                    Compartilhe anonimamente o que você está sentindo. Não vamos guardar seu texto, apenas registrar o ato.
+                    Depois, vamos te mostrar um próximo passo.
+                </p>
+            </div>
+
+        <form action="{{ url_for('enviar_desabafo') }}" method="post" class="main-form texto-centralizado">
+            <div class="form-campo">
+                <label for="desabafo">Qual sua maior dúvida ou medo sobre o seu futuro?</label>
+                <textarea name="desabafo" id="desabafo" rows="4"></textarea>
+            </div>
+            <button type="submit" class="botao botao-primario">Compartilhar e encontrar um caminho</button>
+        </form>
+    
+        <img src="{{ url_for('static', filename='/assets/mulher_flores.png') }}" alt="arte de mulher com flores" class="ilustracao-rodape">
+    </div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

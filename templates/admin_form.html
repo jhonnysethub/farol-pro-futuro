@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ action }} Curso</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="admin-background">
+    <div class="container-principal">
+        <div class="card-conteudo">
+            <h1 class="titulo-principal">{{ action }} Curso</h1>
+
+            <form method="post" action="{{ url_for('admin_edit', id=curso.id) if curso else url_for('admin_add') }}">
+                <div class="form-campo">
+                    <label for="nome_curso">Nome do Curso</label>
+                    <input type="text" id="nome_curso" name="nome_curso" value="{{ curso.nome_curso if curso else '' }}" required>
+                </div>
+                
+                <div class="form-campo">
+                    <label for="universidade_id">Universidade</label>
+                    <select id="universidade_id" name="universidade_id" required>
+                        {% for uni in universidades %}
+                            <option value="{{ uni.id }}" {{ 'selected' if curso and curso.universidade_id == uni.id }}>
+                                {{ uni.sigla }} - {{ uni.nome }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-campo">
+                    <label for="campus">Campus</label>
+                    <input type="text" id="campus" name="campus" value="{{ curso.campus if curso else '' }}" required>
+                </div>
+                
+                <div class="form-campo">
+                    <label for="cidade">Cidade</label>
+                    <input type="text" id="cidade" name="cidade" value="{{ curso.cidade if curso else '' }}" required>
+                </div>
+                
+                <div class="form-campo">
+                    <label for="nota_corte">Nota de Corte</label>
+                    <input type="number" step="0.01" id="nota_corte" name="nota_corte" value="{{ curso.nota_corte if curso else '' }}" required>
+                </div>
+                
+                <div class="form-campo">
+                    <label for="area">Área</label>
+                    <select id="area" name="area" required>
+                        <option value="Exatas" {{ 'selected' if curso and curso.area == 'Exatas' }}>Exatas</option>
+                        <option value="Humanas" {{ 'selected' if curso and curso.area == 'Humanas' }}>Humanas</option>
+                        <option value="Biomédicas" {{ 'selected' if curso and curso.area == 'Biomédicas' }}>Biomédicas</option>
+                    </select>
+                </div>
+                
+                <div style="display: flex; justify-content: flex-end; gap: 1rem; margin-top: 2rem;">
+                    <a href="{{ url_for('admin_list') }}" class="botao" style="background-color: var(--cor-texto-suave);">Cancelar</a>
+                    <button type="submit" class="botao botao-primario">{{ action }} Curso</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cápsula do Tempo - Farol pro Futuro</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+  </head>
+  <body>
+    <header class="main-header">
+      <a href="{{ url_for('index') }}" class="logo">
+        <img
+          src="{{ url_for('static', filename='/assets/logo.png') }}"
+          alt="Logo"
+          class="logo-img"
+        />Farol pro Futuro
+      </a>
+      <nav>
+        <a href="{{ url_for('relembrar') }}">Minha Cápsula do Tempo</a>
+      </nav>
+    </header>
+
+    <div class="container-principal">
+      <div class="card-conteudo">
+        <h1 class="titulo-principal">Cápsula do Tempo</h1>
+        <p style="text-align: center; margin-bottom: 2rem">
+          Digite a chave da sua cápsula para reler a mensagem que você escreveu
+          no passado.
+        </p>
+
+        <form method="post" class="admin-form">
+          <div class="form-campo">
+            <input
+              type="text"
+              name="chave"
+              placeholder="Cole sua chave secreta aqui"
+              value="{{ chave_buscada if chave_buscada }}"
+              required
+            />
+          </div>
+          <button type="submit" class="botao botao-primario">
+            Encontrar minha mensagem
+          </button>
+        </form>
+
+        {% if desabafo %}
+        <div class="capsule-box found-message" style="margin-top: 2rem">
+          <h4>Mensagem encontrada:</h4>
+          <p
+            class="message-date"
+            style="font-size: 0.9rem; color: var(--cor-texto-suave)"
+          >
+            Escrita em: {{ desabafo.data_criacao.strftime('%d de %B de %Y às
+            %H:%M') }}
+          </p>
+          <div
+            class="message-text"
+            style="margin-top: 1rem; font-style: italic; font-size: 1.1rem"
+          >
+            "{{ desabafo.texto }}"
+          </div>
+        </div>
+        {% elif request.method == 'POST' %}
+        <p class="no-results" style="margin-top: 2rem">
+          Nenhuma mensagem encontrada com esta chave. Verifique se a copiou
+          corretamente.
+        </p>
+        {% endif %}
+      </div>
+    </div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+  </body>
+</html>

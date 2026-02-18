@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin - Gerenciamento de Cursos</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+  </head>
+  <body class="admin-background">
+    <div class="container-principal">
+      <div class="card-conteudo">
+        <h1 class="titulo-principal">Painel de Cursos</h1>
+        <a
+          href="{{ url_for('admin_add') }}"
+          class="botao botao-primario"
+          style="margin-bottom: 2rem"
+          >Adicionar Novo Curso</a
+        >
+
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Curso</th>
+              <th>Universidade</th>
+              <th>Nota de Corte</th>
+              <th style="text-align: center">Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for curso in cursos %}
+            <tr>
+              <td>{{ curso.nome_curso }}</td>
+              <td>{{ curso.universidade.sigla }}</td>
+              <td>{{ curso.nota_corte }}</td>
+              <td class="actions">
+                <a
+                  href="{{ url_for('admin_edit', id=curso.id) }}"
+                  class="botao"
+                  style="
+                    background-color: #3498db;
+                    color: #fff;
+                    padding: 5px 10px;
+                    font-size: 0.9rem;
+                  "
+                  >Editar</a
+                >
+                <form
+                  action="{{ url_for('admin_delete', id=curso.id) }}"
+                  method="post"
+                  style="display: inline"
+                >
+                  <button
+                    type="submit"
+                    class="botao botao-secundario"
+                    style="padding: 5px 10px"
+                    onclick="return confirm('Tem certeza que deseja deletar este curso?')"
+                  >
+                    Deletar
+                  </button>
+                </form>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+  </body>
+</html>

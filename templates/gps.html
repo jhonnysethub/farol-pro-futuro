@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Farol pro Futuro - Ação</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+  </head>
+  <body>
+    <header class="main-header">
+      <a href="{{ url_for('index') }}" class="logo">
+        <img
+          src="{{ url_for('static', filename='/assets/logo.png') }}"
+          alt="Logo"
+          class="logo-img"
+        />Farol pro Futuro
+      </a>
+      <nav>
+        <a href="{{ url_for('relembrar') }}">Minha Cápsula do Tempo</a>
+      </nav>
+    </header>
+
+    <div class="container-principal">
+      <div class="card-conteudo">
+        <div class="caixa-descricao">
+          <h2 style="margin-bottom: 1rem">
+            Você teve a coragem de dar o primeiro passo.
+          </h2>
+          <p>
+            Agora, vamos transformar essa energia na luz que vai mostrar o seu
+            caminho.
+          </p>
+        </div>
+
+        {% if session.get('nova_chave') %}
+        <div class="capsule-box">
+          <h4>Sua Cápsula do Tempo foi criada!</h4>
+          <p>
+            Guarde bem a chave abaixo para reler sua mensagem no futuro.
+            <strong>Esta chave não será mostrada novamente!</strong>
+          </p>
+          <div class="secret-key">{{ session.pop('nova_chave') }}</div>
+        </div>
+        {% endif %}
+
+        <div class="form-wrapper">
+          <h3 class="titulo-principal" style="font-size: 2rem">
+            Encontre cursos que combinam com você
+          </h3>
+          <form action="{{ url_for('gps') }}" method="post">
+            <div class="form-campo">
+              <label for="nota">Sua nota (ou estimativa) no ENEM</label>
+              <input id="nota" type="number" step="0.01" name="nota" required />
+            </div>
+            <div class="form-campo">
+              <label for="area">Escolha uma área de interesse</label>
+              <select id="area" name="area" required>
+                <option value="" disabled selected>Selecione...</option>
+                <option value="Exatas">Exatas</option>
+                <option value="Humanas">Humanas</option>
+                <option value="Biomédicas">Biomédicas</option>
+              </select>
+            </div>
+            <button type="submit" class="botao botao-primario">
+              Encontrar Oportunidades
+            </button>
+          </form>
+        </div>
+
+        {% if resultados is not none %}
+        <div class="results-header">
+          <h1>Opções Encontradas</h1>
+        </div>
+        <div class="results-container">
+          {% if resultados %} {% for curso in resultados %}
+          <div class="course-card">
+            <div class="course-header">{{ curso.nome_curso }}</div>
+            <div class="course-info">
+              <div class="course-details">
+                <span
+                  ><strong>UNIVERSIDADE:</strong> {{ curso.universidade.sigla
+                  }}</span
+                >
+                <span><strong>CIDADE:</strong> {{ curso.cidade }}</span>
+              </div>
+
+              <button
+                class="botao botao-secundario"
+                style="padding: 0.5rem 1rem"
+                data-id="{{ curso.id }}"
+                onclick="toggleMoreInfo(this)"
+              >
+                MAIS INFORMAÇÕES ▼
+              </button>
+            </div>
+            <div
+              id="more-info-{{ curso.id }}"
+              class="more-info-content"
+              style="display: none"
+            >
+              <p><strong>Campus:</strong> {{ curso.campus }}</p>
+              <p>
+                <strong>Nota de Corte (Referência):</strong> {{ curso.nota_corte
+                }} pontos
+              </p>
+            </div>
+          </div>
+          {% endfor %} {% else %}
+          <div class="no-results">
+            <p>
+              Nenhuma oportunidade encontrada. Mas não desanime, o Farol está
+              aqui para te guiar!
+            </p>
+          </div>
+          {% endif %}
+        </div>
+
+        <div class="guidance-box">
+          <h3>Sua jornada não termina aqui.</h3>
+          <p>
+            Encontrar um curso é um grande passo. Aqui estão alguns recursos
+            para te ajudar:
+          </p>
+          <ul>
+            <li>
+              <strong>Para se CONECTAR:</strong>
+              <a href="https://www.instagram.com/studygram.mov/" target="_blank"
+                >Perfil Studygram.mov no Instagram</a
+              >
+              <p style="font-size: 0.9rem; margin-top: 0.25rem">
+                Uma comunidade com milhares de estudantes compartilhando dicas,
+                rotinas e apoio mútuo de forma visual e positiva.
+              </p>
+            </li>
+            <li>
+            <strong>Para se INSPIRAR (Link Corrigido):</strong>
+            <a href="https://www.youtube.com/watch?v=1sKnambELRA2" target="_blank">"O que ninguém te contou sobre encontrar sua vocação" (Ludoviajante)</a>
+            <p style="font-size: 0.9rem; margin-top: 0.25rem;">Um vídeo filosófico e acolhedor sobre a pressão de encontrar um propósito e como lidar com a incerteza do futuro.</p>
+        </li>
+            </li>
+            <li>
+              <strong>Para se PLANEJAR:</strong>
+              <a
+                href="https://querobolsa.com.br/guia-de-carreiras/teste-vocacional"
+                target="_blank"
+                >Teste Vocacional Gratuito Quero Bolsa</a
+              >
+              <p style="font-size: 0.9rem; margin-top: 0.25rem">
+                Um teste de perfil rápido e bem estruturado para te dar novas
+                ideias de carreiras que combinam com você, com um direcionamento
+                claro.
+              </p>
+            </li>
+          </ul>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+  </body>
+</html>
